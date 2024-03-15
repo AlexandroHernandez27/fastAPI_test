@@ -32,7 +32,7 @@ install: virtualenv  ## Install and setup project dependencies
 	${ENV_PREFIX}pre-commit install
 .PHONY: install
 
-update_libs:  		## update libs + generate new lockfile & requirements
+update_libs:  		## update libs
 	poetry update
 .PHONY: update-libs
 
