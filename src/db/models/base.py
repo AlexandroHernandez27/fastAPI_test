@@ -23,5 +23,8 @@ class TimeStampedMixin:
 class BaseModel(Base, UUIDMixin, TimeStampedMixin):
     __abstract__ = True
 
+    def dict(self):  # noqa: A003
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
     def __repr__(self) -> str:
         return self.__str__()

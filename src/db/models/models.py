@@ -8,7 +8,7 @@ class Customer(BaseModel):
     __tablename__ = "customers"
 
     full_name = Column(String(length=200), nullable=False)
-    email = Column(String(100), unique=True, nullable=False)
+    email = Column(String(length=100), unique=True, nullable=False)
 
     def __str__(self) -> str:
         return f"Customer(id='{self.id}', full_name='{self.full_name}', email='{self.email}')"

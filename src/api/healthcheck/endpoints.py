@@ -2,7 +2,7 @@ from fastapi import APIRouter, status
 
 from api.healthcheck.schemas import HealthCheckSchema
 from core.settings import settings
-from core.utils.responses import EnvelopeResponse, EnvelopeResponseBody
+from core.utils.responses import EnvelopeResponse
 
 router = APIRouter(tags=["Health Check"])
 
@@ -12,6 +12,4 @@ router = APIRouter(tags=["Health Check"])
 )
 def health_check() -> EnvelopeResponse:
     result = HealthCheckSchema(detail=settings.PROJECT_NAME, version=settings.VERSION)
-
-    body = EnvelopeResponseBody(links=None, count=None, results=result)
-    return EnvelopeResponse(errors=None, body=body)
+    return EnvelopeResponse(errors=None, body=result)

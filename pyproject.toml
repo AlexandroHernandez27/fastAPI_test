@@ -17,6 +17,7 @@ fastapi-pagination = "^0.12.19"
 uvicorn = "^0.28.0"
 pytz = "^2024.1"
 python-dotenv = "^1.0.1"
+email-validator = "^2.1.1"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.6.2"

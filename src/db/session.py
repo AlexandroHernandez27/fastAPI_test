@@ -41,3 +41,15 @@ def use_session() -> Session:
         return DatabaseSessionManager(engine)
     except Exception as exc:
         logger.exception(exc.__str__())
+
+
+DBSession = sessionmaker(bind=engine, autocommit=False)
+
+
+def get_session():
+    db = DBSession()
+    try:
+        yield db
+    except Exception as ex:
+        db.rollback()
+        logger.exception(ex.__str__())

@@ -45,11 +45,12 @@ clean:  			## Remove all temporary files like pycache
 # == Project Helpers
 # ===================================================
 start: install  	## Init development server
+	@docker compose up -d db
 	cd src/ && ${ENV_PREFIX}uvicorn main:app --reload --host 0.0.0.0 --port 9000
 
 .PHONY: test
 test: 				## Run all the tests with docker
-	@docker compose up --build test && docker compose down && docker volume prune --all -f
+	@docker compose up --build test && docker compose rm test -f
 
 .PHONY: app
 app: 				## Run app with docker

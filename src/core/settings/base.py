@@ -19,6 +19,7 @@ class Settings(BaseSettings):
 
     VERSION: str = "1.0.0"
     API_V1: str = "v1"
+    DEFAULT_PAGE_SIZE: int = 30
 
     # Database Settings
     # ----------------------------------------------------------------------------------

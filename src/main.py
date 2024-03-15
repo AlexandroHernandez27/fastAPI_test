@@ -1,12 +1,15 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from fastapi.middleware import Middleware
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
 from fastapi_pagination import add_pagination
 from loguru import logger
 
 from api import routers
+from core.middlewares.catcher import CatcherExceptionMiddleware
+from core.middlewares.trailing_slash import TrailingSlashMiddleware
 from core.settings import settings
 from core.utils.validations import validation_pydantic_field
 from db.utils import init_db
@@ -15,8 +18,8 @@ from db.utils import init_db
 @asynccontextmanager
 async def lifespan(app: FastAPI):  # noqa: ARG001
     logger.success("Start app")
-
-    yield init_db()
+    init_db()
+    yield
 
 
 def create_application() -> FastAPI:
@@ -25,6 +28,10 @@ def create_application() -> FastAPI:
         docs_url="/docs",
         redoc_url="/redoc",
         swagger_ui_parameters={"syntaxHighlight.theme": "obsidian"},
+        middleware=[
+            Middleware(CatcherExceptionMiddleware),
+            Middleware(TrailingSlashMiddleware),
+        ],
         redirect_slashes=False,
     )
     application.add_middleware(
