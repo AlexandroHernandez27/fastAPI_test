@@ -14,6 +14,11 @@ RUN cd /tmp \
     && poetry export -f requirements.txt --output /tmp/requirements.txt --without-hashes --with dev \
     && pip install --no-warn-script-location --disable-pip-version-check --no-cache-dir -r /tmp/requirements.txt
 
+# Copying environment variables
+COPY ./envs.sh /tmp/envs.sh
+RUN chmod +x /tmp/envs.sh
+
+
 # Copy code app
 WORKDIR /app
 COPY . /app
