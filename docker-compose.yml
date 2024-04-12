@@ -13,6 +13,8 @@ services:
     environment:
       POSTGRES_DB: testing
       POSTGRES_PASSWORD: secret
+    ports:
+      - 5435:5432
 
   app:
     build:
@@ -20,7 +22,7 @@ services:
       dockerfile: .deployment/development/Dockerfile
     environment:
       - ENVIRONMENT=development
-      - POSTGRESQL_URL=postgresql://postgres:secret@db:5433/finance
+      - POSTGRESQL_URL=postgresql://postgres:secret@db:5432/finance
     volumes:
       - ./src:/app
     ports:
